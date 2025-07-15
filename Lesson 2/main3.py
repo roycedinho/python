@@ -11,5 +11,5 @@ print("String Multiplied 5 times gives this result:", example)
 word = "Coding"
 print("Length of String:", len(word))
 print("First Letter of String:", word[0])
-print("Last Letter of String:", word[5])  # Index 5 is 'g' in "Coding"
-print("String Sliced:", word[0:3])  # Prints 'Cod'
+print("Last Letter of String:", word[5])  
+print("String Sliced:", word[0:3])  
