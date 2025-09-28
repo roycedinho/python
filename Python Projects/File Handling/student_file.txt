@@ -1,0 +1,3 @@
+This is the first line.  
+This is the second line.  
+This file is used for testing file handling in Python.  

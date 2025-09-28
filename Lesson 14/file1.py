@@ -1,16 +1,15 @@
-#open file and read its contents
+# open file and read its contents
 file = open('Codingal.txt', 'r')
 print(file.read())
 file.close()
 
-#open file and read its beginning 8 characters
-file = open('Codignal.txt', 'r')
-print("\n Read in parts \n")
-print(file.read(8))
-file.close
-
-#append your name and age in the file
+# open file and read its beginning 8 characters
 file = open('Codingal.txt', 'r')
-file.write("Hi! I am Penguin and I am 1 yr old.")
+print("\nRead in parts\n")
+print(file.read(8))
 file.close()
 
+# append your name and age in the file
+file = open('Codingal.txt', 'a')   # use append mode
+file.write("\nHi! I am Penguin and I am 1 yr old.")
+file.close()

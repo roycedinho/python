@@ -1,0 +1,2 @@
+File is overwritten with new content.
+Extra line added with a+ mode.
