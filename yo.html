@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundraising Progress</title>
+
+    <!-- Google Font for a modern, cool look -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #4facfe, #00f2fe, #43e97b, #38f9d7);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            margin: 0;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .card {
+            max-width: 650px;
+            width: 100%;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        p.description {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .label {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #444;
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #eaeaea;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 35px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe, #43e97b);
+            text-align: center;
+            line-height: 35px;
+            color: white;
+            font-weight: bold;
+            transition: width 0.6s ease-in-out;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        input {
+            padding: 10px 12px;
+            font-size: 14px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            width: 160px;
+        }
+
+        button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #4facfe, #43e97b);
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            font-weight: 600;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .footer-note {
+            margin-top: 20px;
+            font-size: 14px;
+            font-style: italic;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h2>Fundraising Progress</h2>
+        <p class="description">
+            This fundraising project aims to raise at least ₦200,000 over a three to six-month period
+            to provide educational materials and basic supplies for underprivileged children through a registered
+            charity.
+            Your support will help children access the tools they need to learn and grow.
+        </p>
+
+        <p class="label">Raised: ₦<span id="raised">50,000</span> / ₦<span id="goal">200,000</span></p>
+
+        <div class="progress-container">
+            <div id="myBar" class="progress-bar">0%</div>
+        </div>
+
+        <div class="controls">
+            <input type="number" id="newAmount" placeholder="Enter new amount (₦)">
+            <button onclick="updateProgress()">Update</button>
+        </div>
+
+        <p class="footer-note">This was initiated by Royce Omotayo-Yomes</p>
+    </div>
+
+    <script>
+        let raised = 50000;   // starting amount
+        let goal = 200000;    // target
+
+        function updateBar() {
+            document.getElementById("raised").textContent = raised.toLocaleString();
+            document.getElementById("goal").textContent = goal.toLocaleString();
+            let percent = Math.min((raised / goal) * 100, 100);
+            let bar = document.getElementById("myBar");
+            bar.style.width = percent + "%";
+            bar.textContent = Math.floor(percent) + "%";
+        }
+
+        function updateProgress() {
+            let input = document.getElementById("newAmount").value;
+            if (input && !isNaN(input)) {
+                raised = parseInt(input);
+                updateBar();
+            }
+        }
+
+        // Initial display
+        updateBar();
+    </script>
+
+</body>
+
+</html>
