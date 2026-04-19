@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitalis Hospital Nigeria • Caring Across the Nation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+        
+        :root {
+            --primary: #00b894;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        .tailwind-ready * {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Playfair Display', sans-serif;
+        }
+
+        .hero-bg {
+            background: linear-gradient(rgba(0, 184, 148, 0.85), rgba(0, 184, 148, 0.85)), url('https://picsum.photos/id/1015/2000/1200') center/cover no-repeat;
+        }
+
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #00b894;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .section-header {
+            position: relative;
+        }
+        
+        .section-header:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background: #00b894;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body class="tailwind-ready">
+    <!-- NAVBAR -->
+    <nav class="bg-white border-b sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div onclick="navigateToHome()" class="flex items-center gap-x-3 cursor-pointer">
+                    <div class="w-10 h-10 bg-[#00b894] rounded-2xl flex items-center justify-center text-white text-3xl shadow-inner">
+                        🩺
+                    </div>
+                    <div>
+                        <h1 class="heading-font text-2xl font-bold tracking-tight text-gray-900">Vitalis</h1>
+                        <p class="text-[10px] text-[#00b894] -mt-1 font-medium">HOSPITAL NIGERIA</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a onclick="navigateToSection('home')" class="nav-link text-gray-700 hover:text-[#00b894] cursor-pointer">Home</a>
+                    <a onclick="navigateToSection('branches')" class="nav-link text-gray-700 hover:text-[#00b894] cursor-pointer">Branches</a>
+                    <a onclick="navigateToSection('services')" class="nav-link text-gray-700 hover:text-[#00b894] cursor-pointer">Services</a>
+                    <a onclick="navigateToSection('online-doctor')" class="nav-link text-gray-700 hover:text-[#00b894] cursor-pointer">Online Doctor</a>
+                    <a onclick="navigateToSection('blog')" class="nav-link text-gray-700 hover:text-[#00b894] cursor-pointer">Blog</a>
+                    <a onclick="navigateToSection('team')" class="nav-link text-gray-700 hover:text-[#00b894] cursor-pointer">Our Team</a>
+                    <a onclick="showRegistrationModal()" class="nav-link text-gray-700 hover:text-[#00b894] cursor-pointer">Register</a>
+                </div>
+
+                <div class="flex items-center gap-x-4">
+                    <!-- Admin Login -->
+                    <button onclick="showAdminLoginModal()" 
+                            class="flex items-center gap-x-2 px-5 py-2 text-sm font-semibold bg-white border border-[#00b894] text-[#00b894] hover:bg-[#00b894] hover:text-white rounded-2xl">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Admin Login</span>
+                    </button>
+
+                    <!-- Book Appointment Button -->
+                    <button onclick="showBookingModal()" 
+                            class="flex items-center gap-x-2 px-6 py-2 text-sm font-semibold bg-[#00b894] text-white hover:bg-[#00a885] rounded-2xl shadow-lg">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Book Appointment</span>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-2xl text-gray-700">
+                        <i class="fas fa-bars" id="mobile-menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t px-6 py-4">
+            <div class="flex flex-col gap-y-4 text-sm font-medium">
+                <a onclick="navigateToSection('home');toggleMobileMenu()" class="py-2 border-b">Home</a>
+                <a onclick="navigateToSection('branches');toggleMobileMenu()" class="py-2 border-b">Branches</a>
+                <a onclick="navigateToSection('services');toggleMobileMenu()" class="py-2 border-b">Services</a>
+                <a onclick="navigateToSection('online-doctor');toggleMobileMenu()" class="py-2 border-b">Online Doctor</a>
+                <a onclick="navigateToSection('blog');toggleMobileMenu()" class="py-2 border-b">Blog</a>
+                <a onclick="navigateToSection('team');toggleMobileMenu()" class="py-2 border-b">Our Team</a>
+                <a onclick="showRegistrationModal();toggleMobileMenu()" class="py-2 border-b">Patient Registration</a>
+                <div class="pt-4">
+                    <button onclick="showBookingModal();toggleMobileMenu()" 
+                            class="w-full py-3 bg-[#00b894] text-white font-semibold rounded-2xl">Book Appointment Now</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO / LANDING SECTION 1 -->
+    <section id="home" class="hero-bg text-white min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-x-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-3xl text-sm font-medium">
+                    <span class="relative flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-green-400"></span>
+                    </span>
+                    5 Branches • Now Serving All of Nigeria
+                </div>
+                
+                <h1 class="heading-font text-6xl md:text-7xl leading-none font-bold tracking-tighter">
+                    Your Health.<br>Our Priority.<br><span class="text-white">Across Nigeria.</span>
+                </h1>
+                
+                <p class="text-xl max-w-lg text-white/90">
+                    Advanced care with compassion. Book appointments, consult online, 
+                    and join Nigeria’s most trusted hospital network.
+                </p>
+
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="showBookingModal()" 
+                            class="px-8 py-4 bg-white text-[#00b894] font-semibold text-lg rounded-3xl hover:shadow-2xl flex items-center gap-x-3">
+                        <i class="fas fa-calendar"></i>
+                        Book In-Person Appointment
+                    </button>
+                    <button onclick="navigateToSection('online-doctor')" 
+                            class="px-8 py-4 border-2 border-white text-white font-semibold text-lg rounded-3xl hover:bg-white hover:text-[#00b894] flex items-center gap-x-3">
+                        <i class="fas fa-video"></i>
+                        Talk to a Doctor Online
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-x-8 text-sm">
+                    <div class="flex -space-x-4">
+                        <div class="w-8 h-8 bg-white rounded-2xl flex items-center justify-center text-[#00b894] text-xs font-bold ring-2 ring-white">5k+</div>
+                        <div class="w-8 h-8 bg-white rounded-2xl flex items-center justify-center text-[#00b894] text-xs font-bold ring-2 ring-white">10k+</div>
+                    </div>
+                    <div>
+                        <p class="font-semibold">Patients served this month</p>
+                        <p class="text-white/70">Join our growing family</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trust badges -->
+            <div class="hidden md:flex flex-col justify-center gap-y-6">
+                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 flex items-center gap-6">
+                    <i class="fas fa-medal text-4xl"></i>
+                    <div>
+                        <p class="font-semibold">ISO 9001 Certified</p>
+                        <p class="text-sm text-white/70">Nigeria’s leading private hospital network</p>
+                    </div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 flex items-center gap-6">
+                    <i class="fas fa-heartbeat text-4xl"></i>
+                    <div>
+                        <p class="font-semibold">24/7 Emergency Care</p>
+                        <p class="text-sm text-white/70">At all 5 branches nationwide</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div onclick="navigateToSection('branches')" class="absolute bottom-10 left-1/2 flex flex-col items-center cursor-pointer">
+            <p class="text-xs tracking-[2px] uppercase mb-2">Our 5 branches</p>
+            <i class="fas fa-chevron-down text-3xl animate-bounce"></i>
+        </div>
+    </section>
+
+    <!-- BRANCHES SECTION (Landing Section 2) -->
+    <section id="branches" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <span class="px-4 py-1 bg-[#00b894]/10 text-[#00b894] text-sm font-semibold rounded-3xl">5 LOCATIONS • 1 MISSION</span>
+                <h2 class="heading-font text-5xl font-bold text-gray-900 mt-4">Our Branches Across Nigeria</h2>
+                <p class="text-gray-600 mt-3 max-w-md mx-auto">From Lagos to Kano — world-class care wherever you are.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <!-- Branch 1 -->
+                <div class="bg-white rounded-3xl overflow-hidden card-hover border border-gray-100">
+                    <img src="https://picsum.photos/id/1015/600/400" alt="Lagos Branch" class="w-full h-40 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between">
+                            <h4 class="font-semibold text-xl">Lagos Main</h4>
+                            <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-2xl">Head Office</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-1">Victoria Island • 24/7 Emergency</p>
+                        <p class="text-[#00b894] text-sm mt-4 flex items-center gap-1"><i class="fas fa-phone"></i> 0800-VITALIS</p>
+                    </div>
+                </div>
+
+                <!-- Branch 2 -->
+                <div class="bg-white rounded-3xl overflow-hidden card-hover border border-gray-100">
+                    <img src="https://picsum.photos/id/133/600/400" alt="Abuja Branch" class="w-full h-40 object-cover">
+                    <div class="p-6">
+                        <h4 class="font-semibold text-xl">Abuja</h4>
+                        <p class="text-gray-500 text-sm mt-1">Maitama District</p>
+                        <p class="text-[#00b894] text-sm mt-4 flex items-center gap-1"><i class="fas fa-phone"></i> 0800-VITALIS</p>
+                    </div>
+                </div>
+
+                <!-- Branch 3 -->
+                <div class="bg-white rounded-3xl overflow-hidden card-hover border border-gray-100">
+                    <img src="https://picsum.photos/id/201/600/400" alt="Port Harcourt Branch" class="w-full h-40 object-cover">
+                    <div class="p-6">
+                        <h4 class="font-semibold text-xl">Port Harcourt</h4>
+                        <p class="text-gray-500 text-sm mt-1">GRA Phase 2</p>
+                        <p class="text-[#00b894] text-sm mt-4 flex items-center gap-1"><i class="fas fa-phone"></i> 0800-VITALIS</p>
+                    </div>
+                </div>
+
+                <!-- Branch 4 -->
+                <div class="bg-white rounded-3xl overflow-hidden card-hover border border-gray-100">
+                    <img src="https://picsum.photos/id/251/600/400" alt="Kano Branch" class="w-full h-40 object-cover">
+                    <div class="p-6">
+                        <h4 class="font-semibold text-xl">Kano</h4>
+                        <p class="text-gray-500 text-sm mt-1">Nasarawa GRA</p>
+                        <p class="text-[#00b894] text-sm mt-4 flex items-center gap-1"><i class="fas fa-phone"></i> 0800-VITALIS</p>
+                    </div>
+                </div>
+
+                <!-- Branch 5 -->
+                <div class="bg-white rounded-3xl overflow-hidden card-hover border border-gray-100">
+                    <img src="https://picsum.photos/id/1005/600/400" alt="Ibadan Branch" class="w-full h-40 object-cover">
+                    <div class="p-6">
+                        <h4 class="font-semibold text-xl">Ibadan</h4>
+                        <p class="text-gray-500 text-sm mt-1">Bodija Estate</p>
+                        <p class="text-[#00b894] text-sm mt-4 flex items-center gap-1"><i class="fas fa-phone"></i> 0800-VITALIS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION (Landing Section 3) -->
+    <section id="services" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="heading-font text-5xl font-bold text-gray-900">Our Services</h2>
+                <p class="text-gray-600 mt-3">From preventive care to advanced surgery — all under one roof</p>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 card-hover text-center">
+                    <i class="fas fa-stethoscope text-5xl text-[#00b894] mb-6"></i>
+                    <h5 class="font-semibold text-xl">General Consultation</h5>
+                    <p class="text-sm text-gray-500 mt-2">₦15,000 (Members ₦10,500)</p>
+                    <button onclick="showBookingModal()" class="mt-8 w-full py-3 text-sm font-semibold border border-[#00b894] text-[#00b894] rounded-2xl">Book Now</button>
+                </div>
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 card-hover text-center">
+                    <i class="fas fa-x-ray text-5xl text-[#00b894] mb-6"></i>
+                    <h5 class="font-semibold text-xl">Diagnostics &amp; Imaging</h5>
+                    <p class="text-sm text-gray-500 mt-2">Ultrasound, MRI, CT-Scan</p>
+                    <button onclick="alert('Diagnostics booking coming soon!')" class="mt-8 w-full py-3 text-sm font-semibold border border-[#00b894] text-[#00b894] rounded-2xl">Learn More</button>
+                </div>
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 card-hover text-center">
+                    <i class="fas fa-procedures text-5xl text-[#00b894] mb-6"></i>
+                    <h5 class="font-semibold text-xl">Surgery &amp; Theatre</h5>
+                    <p class="text-sm text-gray-500 mt-2">Day surgery &amp; major procedures</p>
+                    <button onclick="alert('Surgery inquiry form will open here')" class="mt-8 w-full py-3 text-sm font-semibold border border-[#00b894] text-[#00b894] rounded-2xl">Inquire</button>
+                </div>
+                <div class="bg-white p-8 rounded-3xl border border-gray-100 card-hover text-center bg-gradient-to-br from-[#00b894] to-teal-600 text-white">
+                    <i class="fas fa-heart-pulse text-5xl mb-6"></i>
+                    <h5 class="font-semibold text-xl">Loyalty Program</h5>
+                    <p class="text-sm mt-2">Earn 100 points per visit.<br>30% discount after 500 points.</p>
+                    <div class="mt-8 text-xs bg-white/20 py-1 px-4 inline-block rounded-3xl">Members save up to 40%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ONLINE DOCTOR SECTION (Landing Section 4) -->
+    <section id="online-doctor" class="py-20 bg-[#00b894] text-white">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-7">
+                <span class="uppercase text-white/70 text-sm tracking-widest">NEW • NO TRAFFIC • NO STRESS</span>
+                <h2 class="heading-font text-5xl font-bold mt-3 leading-none">Consult a Doctor from Anywhere in Nigeria</h2>
+                <p class="mt-6 text-lg max-w-lg">Live video or WhatsApp voice consultation. No hospital visit required.</p>
+                
+                <div class="mt-10 flex flex-wrap gap-8">
+                    <div>
+                        <div class="text-sm font-medium">REGULAR PRICE</div>
+                        <div class="text-5xl font-bold">₦8,000</div>
+                    </div>
+                    <div>
+                        <div class="text-sm font-medium">MEMBERS / LOYALTY</div>
+                        <div class="text-5xl font-bold text-yellow-300">₦5,600 <span class="text-base align-super">30% OFF</span></div>
+                    </div>
+                    <div class="text-xs bg-white/20 px-6 py-3 rounded-3xl self-end">
+                        First-time patients pay ₦3,000 admin fee
+                    </div>
+                </div>
+
+                <div class="mt-12 flex gap-4">
+                    <a href="https://meet.google.com" target="_blank" 
+                       class="flex-1 md:flex-none bg-white text-[#00b894] font-semibold py-6 px-10 rounded-3xl text-center text-xl flex items-center justify-center gap-x-3">
+                        <i class="fas fa-video"></i>
+                        JOIN GOOGLE MEET SESSION
+                    </a>
+                    <a href="https://wa.me/2348008482547?text=Hello%20Vitalis%2C%20I%20want%20an%20online%20consultation" target="_blank" 
+                       class="flex-1 md:flex-none border-2 border-white font-semibold py-6 px-10 rounded-3xl text-center text-xl flex items-center justify-center gap-x-3">
+                        <i class="fab fa-whatsapp text-3xl"></i>
+                        CHAT ON WHATSAPP
+                    </a>
+                </div>
+                <p class="text-xs text-white/60 mt-6">Sessions available 8am – 10pm daily • Average wait time: 4 minutes</p>
+            </div>
+            
+            <div class="md:col-span-5 bg-white/10 backdrop-blur-xl rounded-3xl p-8">
+                <div class="flex justify-center">
+                    <div class="w-40 h-40 bg-white rounded-3xl flex items-center justify-center text-7xl shadow-2xl">👨‍⚕️</div>
+                </div>
+                <p class="text-center font-medium mt-6 text-xl">Dr. Chinedu Eze is online right now</p>
+                <p class="text-center text-sm text-white/70">Pediatrician • 127 patients helped today</p>
+                <button onclick="window.open('https://meet.google.com','_blank')" 
+                        class="mt-8 w-full py-5 bg-white text-[#00b894] rounded-3xl font-semibold text-lg">Start Instant Consultation →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOG SECTION -->
+    <section id="blog" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <span class="text-[#00b894] font-semibold">INTERNAL UPDATES &amp; HEALTH TIPS</span>
+                    <h2 class="heading-font text-5xl font-bold text-gray-900">Vitalis Insights</h2>
+                </div>
+                <a onclick="alert('Full blog portal coming soon! All articles are updated weekly.')" 
+                   class="text-[#00b894] flex items-center gap-2 text-sm font-medium cursor-pointer">View all posts <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Blog Post 1: Malaria -->
+                <div onclick="showBlogModal(1)" class="bg-white rounded-3xl overflow-hidden card-hover cursor-pointer">
+                    <img src="https://picsum.photos/id/1016/800/600" alt="Malaria" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <div class="text-xs text-red-500 font-medium mb-2">PREVALENT DISEASE • NIGERIA</div>
+                        <h4 class="font-semibold text-2xl">Combating Malaria: Nigeria’s Silent Killer</h4>
+                        <p class="text-gray-600 text-sm mt-3 line-clamp-3">Over 70 million cases reported yearly. How our branches are distributing free nets and launching prevention drives.</p>
+                        <div class="flex justify-between items-center mt-6 text-xs">
+                            <span>Updated 2 days ago</span>
+                            <span class="text-[#00b894]">Read prevention tips →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog Post 2: Typhoid -->
+                <div onclick="showBlogModal(2)" class="bg-white rounded-3xl overflow-hidden card-hover cursor-pointer">
+                    <img src="https://picsum.photos/id/866/800/600" alt="Typhoid" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <div class="text-xs text-amber-500 font-medium mb-2">PREVALENT DISEASE • NIGERIA</div>
+                        <h4 class="font-semibold text-2xl">Typhoid Fever on the Rise: Water &amp; Hygiene Tips</h4>
+                        <p class="text-gray-600 text-sm mt-3 line-clamp-3">Recent outbreak in Kano &amp; Lagos. Our internal hygiene audit and free testing campaigns explained.</p>
+                        <div class="flex justify-between items-center mt-6 text-xs">
+                            <span>Updated 1 week ago</span>
+                            <span class="text-[#00b894]">Read prevention tips →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Blog Post 3: Sickle Cell -->
+                <div onclick="showBlogModal(3)" class="bg-white rounded-3xl overflow-hidden card-hover cursor-pointer">
+                    <img src="https://picsum.photos/id/1005/800/600" alt="Sickle Cell" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <div class="text-xs text-purple-500 font-medium mb-2">PREVALENT DISEASE • NIGERIA</div>
+                        <h4 class="font-semibold text-2xl">Sickle Cell Awareness Month: Our Free Screening Drive</h4>
+                        <p class="text-gray-600 text-sm mt-3 line-clamp-3">1 in 4 Nigerians carry the trait. How Vitalis is helping families with early diagnosis and management.</p>
+                        <div class="flex justify-between items-center mt-6 text-xs">
+                            <span>Updated 10 days ago</span>
+                            <span class="text-[#00b894]">Read prevention tips →</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM SECTION -->
+    <section id="team" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="heading-font text-5xl font-bold">Meet the Vitalis Family</h2>
+                <p class="text-gray-600">Led by our Founder &amp; CEO — Royce</p>
+            </div>
+
+            <!-- CEO -->
+            <div class="max-w-sm mx-auto mb-16 text-center">
+                <div class="w-36 h-36 mx-auto rounded-3xl overflow-hidden border-4 border-[#00b894]">
+                    <img src="https://picsum.photos/id/64/400/400" alt="CEO Royce" class="w-full h-full object-cover">
+                </div>
+                <h3 class="font-semibold text-3xl mt-6">Royce</h3>
+                <p class="text-[#00b894]">Founder &amp; Chief Executive Officer</p>
+                <p class="text-sm text-gray-500 mt-1">"Building a healthier Nigeria, one patient at a time."</p>
+            </div>
+
+            <!-- Doctors -->
+            <h4 class="text-center text-xl font-medium mb-6 text-gray-500">Our 5 Specialist Doctors</h4>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-6 mb-16">
+                <div class="text-center">
+                    <div class="mx-auto w-24 h-24 rounded-2xl overflow-hidden"><img src="https://picsum.photos/id/1009/400/400" alt="Dr. Fatima Okoro" class="w-full h-full object-cover"></div>
+                    <p class="font-semibold mt-4">Dr. Fatima Okoro</p>
+                    <p class="text-xs text-gray-500">Cardiologist • Lagos</p>
+                </div>
+                <div class="text-center">
+                    <div class="mx-auto w-24 h-24 rounded-2xl overflow-hidden"><img src="https://picsum.photos/id/1011/400/400" alt="Dr. Chinedu Eze" class="w-full h-full object-cover"></div>
+                    <p class="font-semibold mt-4">Dr. Chinedu Eze</p>
+                    <p class="text-xs text-gray-500">Pediatrician • Abuja</p>
+                </div>
+                <div class="text-center">
+                    <div class="mx-auto w-24 h-24 rounded-2xl overflow-hidden"><img src="https://picsum.photos/id/1005/400/400" alt="Dr. Aisha Bello" class="w-full h-full object-cover"></div>
+                    <p class="font-semibold mt-4">Dr. Aisha Bello</p>
+                    <p class="text-xs text-gray-500">Gynecologist • PHC</p>
+                </div>
+                <div class="text-center">
+                    <div class="mx-auto w-24 h-24 rounded-2xl overflow-hidden"><img src="https://picsum.photos/id/133/400/400" alt="Dr. Emeka Nwosu" class="w-full h-full object-cover"></div>
+                    <p class="font-semibold mt-4">Dr. Emeka Nwosu</p>
+                    <p class="text-xs text-gray-500">Neurologist • Kano</p>
+                </div>
+                <div class="text-center">
+                    <div class="mx-auto w-24 h-24 rounded-2xl overflow-hidden"><img src="https://picsum.photos/id/201/400/400" alt="Dr. Ngozi Adeyemi" class="w-full h-full object-cover"></div>
+                    <p class="font-semibold mt-4">Dr. Ngozi Adeyemi</p>
+                    <p class="text-xs text-gray-500">General Surgeon • Ibadan</p>
+                </div>
+            </div>
+
+            <!-- Nurses -->
+            <h4 class="text-center text-xl font-medium mb-6 text-gray-500">Our 10 Dedicated Nurses</h4>
+            <div class="flex flex-wrap justify-center gap-8 text-sm">
+                <div class="flex flex-col items-center w-28">
+                    <div class="text-4xl mb-2">👩‍⚕️</div>
+                    <p class="font-medium">Nurse Grace Okeke</p>
+                    <p class="text-xs text-gray-400">Lagos</p>
+                </div>
+                <div class="flex flex-col items-center w-28">
+                    <div class="text-4xl mb-2">👨‍⚕️</div>
+                    <p class="font-medium">Nurse Tunde Adebayo</p>
+                    <p class="text-xs text-gray-400">Abuja</p>
+                </div>
+                <div class="flex flex-col items-center w-28">
+                    <div class="text-4xl mb-2">👩‍⚕️</div>
+                    <p class="font-medium">Nurse Amina Yusuf</p>
+                    <p class="text-xs text-gray-400">Port Harcourt</p>
+                </div>
+                <div class="flex flex-col items-center w-28">
+                    <div class="text-4xl mb-2">👨‍⚕️</div>
+                    <p class="font-medium">Nurse Ibrahim Musa</p>
+                    <p class="text-xs text-gray-400">Kano</p>
+                </div>
+                <div class="flex flex-col items-center w-28">
+                    <div class="text-4xl mb-2">👩‍⚕️</div>
+                    <p class="font-medium">Nurse Chinelo Nwankwo</p>
+                    <p class="text-xs text-gray-400">Ibadan</p>
+                </div>
+                <div class="text-gray-400 text-xs flex items-center gap-1 mt-6">+ 5 more amazing nurses at each branch</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <div class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-y-6">
+            <div>
+                <h3 class="text-3xl font-semibold">Stay updated with Vitalis</h3>
+                <p class="text-gray-400">Monthly health tips, branch news &amp; special offers</p>
+            </div>
+            <form onsubmit="subscribeNewsletter(event)" class="flex w-full md:w-auto">
+                <input id="newsletter-email" type="email" placeholder="Your email address" 
+                       class="flex-1 md:w-96 px-6 py-4 rounded-l-3xl bg-white/10 border border-white/30 text-white placeholder:text-white/50 outline-none">
+                <button type="submit"
+                        class="bg-[#00b894] px-10 rounded-r-3xl font-semibold">Subscribe</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white/70 text-sm">
+        <div class="max-w-7xl mx-auto px-6 pt-12 pb-8 grid grid-cols-2 md:grid-cols-4 gap-y-8">
+            <div>
+                <div class="flex items-center gap-x-3 text-white mb-6">
+                    <div class="w-9 h-9 bg-[#00b894] rounded-2xl flex items-center justify-center text-3xl">🩺</div>
+                    <span class="heading-font text-3xl">Vitalis</span>
+                </div>
+                <p class="max-w-xs">Nigeria’s premier hospital network delivering excellence in every community.</p>
+                <p onclick="navigateToHome()" class="mt-8 cursor-pointer text-[#00b894] flex items-center gap-1 text-xs uppercase"><i class="fas fa-home"></i> Click logo anywhere to return home</p>
+            </div>
+            <div>
+                <p class="font-medium text-white mb-4">Quick Links</p>
+                <ul class="space-y-2">
+                    <li onclick="navigateToSection('branches')">Branches</li>
+                    <li onclick="navigateToSection('services')">Services</li>
+                    <li onclick="navigateToSection('online-doctor')">Online Doctor</li>
+                    <li onclick="showBookingModal()">Appointments</li>
+                </ul>
+            </div>
+            <div>
+                <p class="font-medium text-white mb-4">Company</p>
+                <ul class="space-y-2">
+                    <li onclick="navigateToSection('team')">Our Team</li>
+                    <li onclick="showRegistrationModal()">Become a Patient</li>
+                    <li>Careers</li>
+                    <li>Contact Us • 0800-VITALIS</li>
+                </ul>
+            </div>
+            <div>
+                <p class="font-medium text-white mb-4">Connect</p>
+                <div class="flex gap-4 text-2xl">
+                    <i class="fab fa-x-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <p class="text-xs mt-8">© 2026 Vitalis Hospital Nigeria.<br>All Rights Reserved.</p>
+                <p class="text-[10px] mt-2">Built as a complete demo with ❤️ for Royce</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODALS -->
+
+    <!-- Admin Login Modal -->
+    <div onclick="if(event.target.id === 'admin-modal')hideAdminModal()" 
+         id="admin-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[9999]">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-white rounded-3xl max-w-md w-full mx-4 overflow-hidden">
+            <div class="px-8 py-6 border-b flex items-center justify-between">
+                <h3 class="font-semibold text-2xl">Admin Portal Login</h3>
+                <i onclick="hideAdminModal()" class="fas fa-times text-2xl cursor-pointer"></i>
+            </div>
+            <div class="p-8 space-y-6">
+                <div>
+                    <label class="text-xs font-medium text-gray-500">USERNAME</label>
+                    <input id="admin-username" value="admin" type="text" class="w-full px-4 py-4 border rounded-2xl outline-none">
+                </div>
+                <div>
+                    <label class="text-xs font-medium text-gray-500">PASSWORD</label>
+                    <input id="admin-password" value="vitalis2026" type="password" class="w-full px-4 py-4 border rounded-2xl outline-none">
+                </div>
+                <button onclick="handleAdminLogin()" 
+                        class="w-full py-5 bg-[#00b894] text-white font-semibold rounded-3xl">LOG IN TO HOSPITAL MANAGEMENT SYSTEM</button>
+                <p class="text-center text-xs text-gray-400">Demo credentials pre-filled • Real system would connect to Python backend</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div onclick="if(event.target.id === 'booking-modal')hideBookingModal()" 
+         id="booking-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[9999]">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white rounded-3xl max-w-lg w-full mx-4">
+            <div class="px-8 py-6 border-b flex justify-between">
+                <h3 class="font-semibold text-2xl">Book Your Appointment</h3>
+                <i onclick="hideBookingModal()" class="fas fa-times cursor-pointer text-2xl"></i>
+            </div>
+            <div class="p-8 space-y-6">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium mb-2">SELECT BRANCH</label>
+                        <select id="booking-branch" class="w-full px-4 py-4 rounded-2xl border outline-none">
+                            <option>Lagos Main</option>
+                            <option>Abuja</option>
+                            <option>Port Harcourt</option>
+                            <option>Kano</option>
+                            <option>Ibadan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium mb-2">PREFERRED DOCTOR</label>
+                        <select id="booking-doctor" class="w-full px-4 py-4 rounded-2xl border outline-none">
+                            <option>Dr. Fatima Okoro</option>
+                            <option>Dr. Chinedu Eze</option>
+                            <option>Dr. Aisha Bello</option>
+                            <option>Dr. Emeka Nwosu</option>
+                            <option>Dr. Ngozi Adeyemi</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium mb-2">DATE &amp; TIME</label>
+                    <input id="booking-date" type="date" value="2026-04-20" class="w-full px-4 py-4 rounded-2xl border outline-none">
+                </div>
+                <div class="flex items-center justify-between text-sm">
+                    <span>Fee: <span id="booking-fee" class="font-semibold">₦15,000</span></span>
+                    <span class="text-[#00b894] text-xs">Members get 30% off • Loyalty points earned</span>
+                </div>
+                <button onclick="confirmBooking()" 
+                        class="w-full py-5 rounded-3xl bg-gradient-to-r from-[#00b894] to-teal-500 text-white font-bold text-lg">CONFIRM BOOKING</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div onclick="if(event.target.id === 'reg-modal')hideRegistrationModal()" 
+         id="reg-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[9999]">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white rounded-3xl max-w-lg w-full mx-4 max-h-[90vh] overflow-auto">
+            <div class="sticky top-0 bg-white px-8 py-6 border-b z-10 flex justify-between">
+                <h3 class="font-semibold text-2xl">Patient Registration</h3>
+                <i onclick="hideRegistrationModal()" class="fas fa-times text-2xl cursor-pointer"></i>
+            </div>
+            <div class="p-8 space-y-6">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs font-medium">FULL NAME</label>
+                        <input type="text" value="John Doe" class="w-full px-4 py-4 border rounded-2xl">
+                    </div>
+                    <div>
+                        <label class="text-xs font-medium">PHONE</label>
+                        <input type="tel" value="08012345678" class="w-full px-4 py-4 border rounded-2xl">
+                    </div>
+                </div>
+                <div>
+                    <label class="text-xs font-medium">EMAIL</label>
+                    <input type="email" value="patient@example.com" class="w-full px-4 py-4 border rounded-2xl">
+                </div>
+                <div>
+                    <label class="text-xs font-medium">CHOOSE BRANCH FOR REGISTRATION</label>
+                    <select class="w-full px-4 py-4 border rounded-2xl">
+                        <option>Lagos Main</option>
+                        <option>Abuja</option>
+                        <option>Port Harcourt</option>
+                    </select>
+                </div>
+                <div class="flex items-center gap-2 text-xs bg-amber-100 text-amber-600 px-4 py-3 rounded-2xl">
+                    <i class="fas fa-info-circle"></i>
+                    <p>New patients pay ₦3,000 one-time admin fee (waived for loyalty members)</p>
+                </div>
+                <button onclick="completeRegistration()" 
+                        class="w-full py-5 bg-[#00b894] text-white rounded-3xl font-bold">CREATE ACCOUNT &amp; JOIN LOYALTY PROGRAM</button>
+                <p class="text-center text-xs">After registration you receive instant 10% discount on all services</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Detail Modal -->
+    <div onclick="if(event.target.id === 'blog-detail-modal')hideBlogDetailModal()" 
+         id="blog-detail-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[9999]">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-white rounded-3xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-auto">
+            <div id="blog-detail-content" class="p-8"></div>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind initialization
+        function initializeTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        configUser: userConfig,
+                        theme: {
+                            extend: {
+                                colors: {
+                                    primary: '#00b894'
+                                }
+                            }
+                        }
+                    }
+                },
+                theme: {
+                    extend: {}
+                }
+            }
+        }
+        
+        // Initialize everything
+        function init() {
+            initializeTailwind()
+            console.log('%c✅ Vitalis Hospital Nigeria website ready! Built for Royce with HTML + Tailwind + JS', 'color:#00b894; font-size:13px; font-weight:600')
+            
+            // Fake live clock for online doctor
+            setInterval(() => {
+                const els = document.querySelectorAll('.text-amber-500')
+                if (els.length) els.forEach(el => el.classList.toggle('animate-pulse'))
+            }, 3000)
+            
+            console.log('Python backend note: This is a fully functional frontend demo. For Flask/Django integration (real DB for appointments, admin dashboard, patient records), reply with "add python backend"')
+        }
+        
+        // Navigation helpers
+        function navigateToHome() {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+        
+        function navigateToSection(section) {
+            const el = document.getElementById(section)
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' })
+            }
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            const icon = document.getElementById('mobile-menu-icon')
+            if (menu.classList.contains('hidden')) {
+                menu.style.display = 'block'
+                icon.classList.replace('fa-bars', 'fa-xmark')
+            } else {
+                menu.style.display = 'none'
+                icon.classList.replace('fa-xmark', 'fa-bars')
+            }
+        }
+        
+        // Admin login
+        function showAdminLoginModal() {
+            document.getElementById('admin-modal').classList.remove('hidden')
+            document.getElementById('admin-modal').classList.add('flex')
+        }
+        
+        function hideAdminModal() {
+            const modal = document.getElementById('admin-modal')
+            modal.classList.add('hidden')
+            modal.classList.remove('flex')
+        }
+        
+        function handleAdminLogin() {
+            const username = document.getElementById('admin-username').value
+            const password = document.getElementById('admin-password').value
+            
+            if (username === 'admin' && password === 'vitalis2026') {
+                hideAdminModal()
+                setTimeout(() => {
+                    alert('✅ Welcome to the Hospital Management System Dashboard!\n\n(Full Python Flask dashboard would appear here with patient records, appointment calendar, staff roster, billing, etc.)')
+                    console.log('🔧 Real backend would now load Flask routes for CRUD operations')
+                }, 400)
+            } else {
+                alert('Invalid credentials. Demo uses admin / vitalis2026')
+            }
+        }
+        
+        // Booking modal
+        function showBookingModal() {
+            document.getElementById('booking-modal').classList.remove('hidden')
+            document.getElementById('booking-modal').classList.add('flex')
+        }
+        
+        function hideBookingModal() {
+            const modal = document.getElementById('booking-modal')
+            modal.classList.add('hidden')
+            modal.classList.remove('flex')
+        }
+        
+        function confirmBooking() {
+            hideBookingModal()
+            setTimeout(() => {
+                const points = Math.floor(Math.random() * 120) + 80
+                alert(`🎟️ Appointment confirmed!\n\nYou earned ${points} loyalty points.\n\nConfirmation sent to your email/WhatsApp. Thank you for choosing Vitalis!`)
+                console.log('Python backend would now POST to /api/bookings')
+            }, 600)
+        }
+        
+        // Registration
+        function showRegistrationModal() {
+            document.getElementById('reg-modal').classList.remove('hidden')
+            document.getElementById('reg-modal').classList.add('flex')
+        }
+        
+        function hideRegistrationModal() {
+            const modal = document.getElementById('reg-modal')
+            modal.classList.add('hidden')
+            modal.classList.remove('flex')
+        }
+        
+        function completeRegistration() {
+            hideRegistrationModal()
+            setTimeout(() => {
+                alert('🎉 Registration successful!\nYou are now a Vitalis Member.\n30% discount activated + 100 bonus loyalty points added.\n\n(Real backend would save to PostgreSQL/MySQL)')
+            }, 500)
+        }
+        
+        // Newsletter
+        function subscribeNewsletter(e) {
+            e.preventDefault()
+            const email = document.getElementById('newsletter-email').value
+            if (email) {
+                alert(`✅ Thank you! You are now subscribed.\n\nMonthly newsletter will be sent to ${email}`)
+                document.getElementById('newsletter-email').value = ''
+                console.log('Python backend would add to Mailchimp / database')
+            }
+        }
+        
+        // Blog modals
+        function showBlogModal(id) {
+            const modal = document.getElementById('blog-detail-modal')
+            const content = document.getElementById('blog-detail-content')
+            
+            let html = ''
+            
+            if (id === 1) {
+                html = `
+                <div class="prose">
+                    <h2 class="text-3xl font-bold mb-2">Combating Malaria: Nigeria’s Silent Killer</h2>
+                    <p class="text-gray-500 text-sm mb-8">Published April 10, 2026 • Vitalis Internal Health Team</p>
+                    <img src="https://picsum.photos/id/1016/1200/600" class="rounded-3xl mb-8 w-full" alt="Malaria">
+                    <p class="text-lg">Malaria remains the leading cause of hospital visits in Nigeria. In 2025 our 5 branches recorded over 14,300 cases — down 22% from previous year thanks to our free insecticide-treated net distribution program.</p>
+                    <h4 class="font-semibold mt-8 mb-3">How to prevent Malaria:</h4>
+                    <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                        <li>Sleep under insecticide-treated mosquito nets every night</li>
+                        <li>Use approved insect repellents on exposed skin</li>
+                        <li>Clear stagnant water around your home</li>
+                        <li>Take preventive medication if travelling to high-risk areas</li>
+                    </ul>
+                    <button onclick="hideBlogDetailModal()" class="mt-10 px-8 py-3 bg-gray-900 text-white rounded-3xl text-sm font-medium">Close article</button>
+                </div>`
+            } else if (id === 2) {
+                html = `
+                <div class="prose">
+                    <h2 class="text-3xl font-bold mb-2">Typhoid Fever on the Rise: Water &amp; Hygiene Tips</h2>
+                    <p class="text-gray-500 text-sm mb-8">Published April 5, 2026 • Vitalis Kano &amp; Lagos Branches</p>
+                    <img src="https://picsum.photos/id/866/1200/600" class="rounded-3xl mb-8 w-full" alt="Typhoid">
+                    <p class="text-lg">Contaminated water and poor sanitation continue to fuel typhoid outbreaks. Our teams have conducted 2,800 free Widal tests this quarter.</p>
+                    <h4 class="font-semibold mt-8 mb-3">Prevention steps:</h4>
+                    <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                        <li>Boil or treat drinking water</li>
+                        <li>Wash hands thoroughly before eating</li>
+                        <li>Avoid street food during outbreaks</li>
+                        <li>Get vaccinated if available in your area</li>
+                    </ul>
+                    <button onclick="hideBlogDetailModal()" class="mt-10 px-8 py-3 bg-gray-900 text-white rounded-3xl text-sm font-medium">Close article</button>
+                </div>`
+            } else if (id === 3) {
+                html = `
+                <div class="prose">
+                    <h2 class="text-3xl font-bold mb-2">Sickle Cell Awareness Month: Our Free Screening Drive</h2>
+                    <p class="text-gray-500 text-sm mb-8">Published April 1, 2026 • CEO Royce’s Initiative</p>
+                    <img src="https://picsum.photos/id/1005/1200/600" class="rounded-3xl mb-8 w-full" alt="Sickle Cell">
+                    <p class="text-lg">1 in 4 Nigerians carry the sickle cell trait. Vitalis screened 4,900 people free of charge last month with genetic counselling provided to every positive case.</p>
+                    <h4 class="font-semibold mt-8 mb-3">Prevention &amp; management:</h4>
+                    <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                        <li>Know your genotype before marriage</li>
+                        <li>Regular folic acid and penicillin prophylaxis</li>
+                        <li>Hydration and pain management education</li>
+                        <li>Free screening available at all Vitalis branches</li>
+                    </ul>
+                    <button onclick="hideBlogDetailModal()" class="mt-10 px-8 py-3 bg-gray-900 text-white rounded-3xl text-sm font-medium">Close article</button>
+                </div>`
+            }
+            
+            content.innerHTML = html
+            modal.classList.remove('hidden')
+            modal.classList.add('flex')
+        }
+        
+        function hideBlogDetailModal() {
+            const modal = document.getElementById('blog-detail-modal')
+            modal.classList.add('hidden')
+            modal.classList.remove('flex')
+        }
+        
+        // Start the app
+        window.onload = init
+    </script>
+</body>
+</html>
